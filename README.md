@@ -32,6 +32,9 @@ The spin symmetry enforced solution introduced in [Symmetry enforced solution of
 
 See [Spin Symmetry](#spin-symmetry) section for more details. 
 
+### Pseudopotential(PP)
+See [PP](#pp) section for more details.
+
 ## DMC
 The fixed-node diffusion Monte Carlo (FNDMC) implementation here has a simple interface.
 In the simplest case, it requires only a (real-valued) trial wavefunction, taking in a dim-3N electron configuration and producing two outputs: 
@@ -143,6 +146,67 @@ Note that this example script is by no means "production-ready". It is just a
 show case on how to integrate the `loss` module with exisiting NNQMC projects. 
 For instance, it's not including the pretrain phase since it has nothing to do
 with the `loss` module.
+
+## PP
+We provide two types of PP interfaces, namely effective core potential (ECP) and Pseudo-Hamiltonian (PH).
+These interfaces can be easily combined with various network structures and used for the calculation of VMC and DMC.
+
+For ECP, we have provided all available ccECP atoms. The available ccECP atoms can be queried at https://pseudopotentiallibrary.org/.
+The ECP configs can be found at ​​examples/pp/lapnet/configs/ecp/.
+
+- X.py​​ is used for single-atom calculations.
+​
+
+For PH, we have provided all available PH atoms. The currently available PH atoms include ​​S, Cr, Mn, Fe, Co, Ni, Cu, and Zn​​. 
+The PH configs can be found at ​​examples/pp/lapnet/configs/ph/​​.
+
+- X.py​​ is used for single-atom calculations.
+​​
+- XS.py​​ is used for sulfide calculations.
+
+
+We implement `PP` module in JaQMC and introduce different PPs with the function:
+```python
+def pp_energy(f: WavefunctionLike,
+               atoms: jnp.ndarray,
+               nspins: Sequence[int],
+               charges: jnp.ndarray,
+               pyscf_mol: pyscf.gto.mole,
+               pp_cfg,
+               energy_local : EnergyPattern = None,
+               use_scan: bool = False,
+               el_partition_num = 0,
+               forward_laplacian=True,
+               ) -> EnergyPattern:
+  """Returns the total energy funtion.
+  Args:
+    f: network parameters.
+    atoms: Shape (natoms, ndim). Positions of the atoms.
+    charges:Shape (natoms). Nuclear charges of the atoms.
+    pyscf_mol: pyscf molecule object.
+    pp_cfg: pp config.
+    energy_local: local energy function.
+    use_scan: whether to use scan.
+    el_partition_num: number of electrons.
+    forward_laplacian: whether to use forward mode for the laplacian.
+  Returns:
+    energy: total energy.
+  """
+```
+
+### Integration with LapNet
+Please first install LapNet following instructions in https://github.com/bytedance/lapnet.
+Then train LapNet for your favorite atom / molecule with pseudopotential. Taking the example of a S atom. 
+- Training LapNet with ph in the VMC framework
+```shell
+python3 examples/pp/lapnet/run.py --config examples/pp/lapnet/configs/ph/X.py:S,2 --config.batch_size 256 --config.pretrain.iterations 10 --config.optim.iterations 10 --config.log.save_path $YOUR_VMC_CKPT_DIRECTORY 
+```
+
+- Training LapNet with ecp in the VMC framework
+```shell
+python3 examples/pp/lapnet/run.py --config examples/pp/lapnet/configs/ecp/X.py:S,2 --config.batch_size 256 --config.pretrain.iterations 10 --config.optim.iterations 10 --config.log.save_path $YOUR_VMC_CKPT_DIRECTORY 
+```
+
 
 ## Giving Credit
 If you use certain functionalities of JaQMC in your work, please consider citing the corresponding papers.
