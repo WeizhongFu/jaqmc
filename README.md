@@ -35,6 +35,7 @@ See [Spin Symmetry](#spin-symmetry) section for more details.
 
 ### Pseudopotential(PP)
 The (semi-local or local) pseudopotentials introduced in [Fermionic neural network with effective core potential](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.4.013021) and [Local Pseudopotential Unlocks the True Potential of Neural Network-based Quantum Monte Carlo](https://arxiv.org/abs/2505.19909)
+
 See [PP](#pp) section for more details.
 
 ## DMC
@@ -237,6 +238,20 @@ If you use certain functionalities of JaQMC in your work, please consider citing
   pages={910--919},
   year={2024},
   publisher={Nature Publishing Group}
+}
+```
+
+### ECP paper
+```
+@article{li2022fermionic,
+  title={Fermionic neural network with effective core potential},
+  author={Li, Xiang and Fan, Cunwei and Ren, Weiluo and Chen, Ji},
+  journal={Physical Review Research},
+  volume={4},
+  number={1},
+  pages={013021},
+  year={2022},
+  publisher={APS}
 }
 ```
 
