@@ -6,6 +6,7 @@ Quantum Monte Carlo (QMC) implementations in JAX.
 Currently supported functionalities:
 - Diffusion Monte Carlo (DMC)
 - Spin Symmetry Enforcement 
+- Pseudopotential (PP)
 
 ## Installation
 JaQMC can be installed via the supplied setup.py file.
@@ -33,6 +34,7 @@ The spin symmetry enforced solution introduced in [Symmetry enforced solution of
 See [Spin Symmetry](#spin-symmetry) section for more details. 
 
 ### Pseudopotential(PP)
+The (semi-local or local) pseudopotentials introduced in [Fermionic neural network with effective core potential](https://journals.aps.org/prresearch/abstract/10.1103/PhysRevResearch.4.013021) and [Local Pseudopotential Unlocks the True Potential of Neural Network-based Quantum Monte Carlo](https://arxiv.org/abs/2505.19909)
 See [PP](#pp) section for more details.
 
 ## DMC
@@ -226,10 +228,24 @@ If you use certain functionalities of JaQMC in your work, please consider citing
 
 ### Spin Symmetry paper
 ```
-@article{li2024symmetry,
-  title={Symmetry enforced solution of the many-body Schr$\backslash$" odinger equation with deep neural network},
+@article{li2024spin,
+  title={Spin-symmetry-enforced solution of the many-body Schr{\"o}dinger equation with a deep neural network},
   author={Li, Zhe and Lu, Zixiang and Li, Ruichen and Wen, Xuelan and Li, Xiang and Wang, Liwei and Chen, Ji and Ren, Weiluo},
-  journal={arXiv preprint arXiv:2406.01222},
-  year={2024}
+  journal={Nature Computational Science},
+  volume={4},
+  number={12},
+  pages={910--919},
+  year={2024},
+  publisher={Nature Publishing Group}
+}
+```
+
+### PH paper
+```
+@article{fu2025local,
+  title={Local Pseudopotential Unlocks the True Potential of Neural Network-based Quantum Monte Carlo},
+  author={Fu, Weizhong and Fujimaru, Ryunosuke and Li, Ruichen and Liu, Yuzhi and Wen, Xuelan and Li, Xiang and Hongo, Kenta and Wang, Liwei and Ichibha, Tom and Maezono, Ryo and others},
+  journal={arXiv preprint arXiv:2505.19909},
+  year={2025}
 }
 ```
